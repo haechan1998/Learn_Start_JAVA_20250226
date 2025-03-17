@@ -21,6 +21,12 @@ public class MenuOrder extends Menu{
 	private int MenuMutiPrice; // (가격 * 수량)
 	
 	public MenuOrder() {}
+	
+	public MenuOrder(String menuName, int menuCode, int menuCount) {
+		this.MenuCount = menuCount;
+		
+		
+	}
 
 	public MenuOrder(String menuName, int menuCode, int menuPrice, int MenuCount) { // 주문시 필요한 것.
 		super(menuName, menuCode, menuPrice);
