@@ -70,7 +70,7 @@ class WordController{
 		System.out.println("등록이 완료되었습니다.");
 		
 	}
-	// 2. 단어검색 > 이따 다시 해보자.
+	// 2. 단어검색 > 이따 다시 해보자. // containsKey > key 의 값이 존재하는지 확인 : true / false.
 	public void searchWord(Scanner sc) {
 		System.out.print("검색할 단어를 입력하세요. >");
 		String search = sc.next();
@@ -83,13 +83,17 @@ class WordController{
 	}
 	
 	// 3. 단어수정
-	public void updateWord(Scanner sc) {
+	public void updateWord(Scanner sc) { // if 문에 contains 를 이용해서 key 값을 비교. 그대로 put.
 		System.out.println("수정할 단어를 입력하세요. >");
 		String search = sc.next();
-		System.out.println("바꿀 단어를 입력하세요. >");
-		String update = sc.next();
-		
-		word.put(search, update);
+		if(word.containsKey(search)) {
+			System.out.println("바꿀 단어를 입력하세요. >");
+			String update = sc.next();
+			
+			word.put(search, update); // key 의 중복은 자동으로 삭제되기 때문에 그걸 이용한다.
+		}else {
+			System.out.println("수정할 단어가 없습니다.");
+		}
 		
 	}
 	
