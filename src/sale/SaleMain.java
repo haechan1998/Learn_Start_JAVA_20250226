@@ -47,14 +47,17 @@ public class SaleMain {
 			case 6:
 				c.printOrder();
 				break;
+			case 7:
+				System.out.println("종료되었습니다.");
+				break;
 				default :
 					System.out.println("다시입력해주세요.");
 					break;
 			}
 			
 		}while(menuSelect != 7);
-		System.out.println("종료되었습니다.");
 		
+		sc.close();
 	}
 
 }

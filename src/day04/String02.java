@@ -38,7 +38,7 @@ public class String02 {
 
 		System.out.println("--split--");
 
-		String[] arr = str3.split(""); // ,를 기준으로 배열에 나누어 담아줌.
+		String[] arr = str3.split(","); // ,를 기준으로 배열에 나누어 담아줌.
 
 		for (int i = 0; i < arr.length; i++) {
 			System.out.println(arr[i]);
