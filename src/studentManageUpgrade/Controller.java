@@ -19,6 +19,7 @@ public class Controller{
 	*/
 	
 	public void baseSubject() {
+	//기본 수강과목.	
 		Subject sub1 = new Subject(1001, "과목1", 2, "김철수", 1, "월-수 15~16", "1번강의실");
 		codeCount++;
 		subList.add(sub1);
@@ -37,6 +38,7 @@ public class Controller{
 	}
 	
 	public void baseStudent() {
+	//기본 학생	
 		stuList.add(new Student(1,"홍길동",24,"01012341111","관악구"));
 		stuList.add(new Student(2,"김철수",22,"01012342222","구로구"));
 		stuList.add(new Student(3,"박남동",25,"01012343333","강북구"));
@@ -59,11 +61,18 @@ public class Controller{
 		sc.nextLine();
 		String address = sc.nextLine();
 		
-		Student stu = new Student(code, name, age, phone, address);
-		stuList.add(stu);
-		System.out.println("학생 추가 완료.");
-		
-		
+		for(int i=0; i<stuList.size(); i++) {
+			if(stuList.get(i).getCode() == code) {
+				System.out.println("이미 존재하는 학번입니다.");
+				return;
+			}
+			if(stuList.get(i).getCode() != code) {
+				Student stu = new Student(code, name, age, phone, address);
+				stuList.add(stu);
+				System.out.println("학생 추가 완료.");
+				return;
+			}
+		}
 	}
 
 	public void studentList() {
@@ -154,6 +163,7 @@ public class Controller{
 	}
 
 	public void deleteSubject(Scanner sc) {
+	//수강철회
 			if(stuList.isEmpty()) {
 				System.out.println("학생등록을 해주세요.");
 				return;
@@ -195,10 +205,15 @@ public class Controller{
 		System.out.println("과목코드를 입력해주세요.");
 		int subCode = sc.nextInt();
 		for(int i=0; i<stuList.size(); i++) {
-			System.out.println("--성적--");
-			System.out.print(stuList.get(i).getName() + " "); 
-			stuList.get(i).printScore(subCode);
-			System.out.println();
+			for(int j=0; j<stuList.get(i).getList().size(); i++) {
+				if(stuList.get(i).getList().get(j).getSubCode() == subCode) {
+					System.out.println("--성적--");
+					System.out.print(stuList.get(i).getName() + " "); 
+					stuList.get(i).printScore(subCode);
+					System.out.println();
+					return;
+				}
+			}
 		}
 		
 		
@@ -233,35 +248,6 @@ public class Controller{
 			}
 		}
 		
-
-		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

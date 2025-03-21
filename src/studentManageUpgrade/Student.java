@@ -1,6 +1,7 @@
 package studentManageUpgrade;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Student {
 	/*- 학번, 이름, 나이, 전화번호, 주소
@@ -96,6 +97,23 @@ public class Student {
 	public String toString() {
 		return "학번>" + code + "이름>" + name + "나이>" + age + "전화번호>" + phone + "주소>" + address
 				+ "수강과목>" + studentSubList + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(code);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		return code == other.code;
 	}
 
 	public int getCode() {

@@ -1,5 +1,7 @@
 package studentManageUpgrade;
 
+import java.util.Objects;
+
 public class Subject {
 	/*
 	 * - 과목코드, 과목명, 학점, 교수명, 시수, 시간표, 강의장
@@ -29,7 +31,7 @@ public class Subject {
 		this.room = s.room;
 		
 	}
-
+	
 	public Subject(int subCode, String subName, int credit, String professor, int time, String timeTable,
 			String room) {
 		
@@ -43,6 +45,23 @@ public class Subject {
 	}
 	
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(subCode);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Subject other = (Subject) obj;
+		return subCode == other.subCode;
+	}
+
 	public void subjectInfo() {
 		System.out.println("과목코드 :" + subCode + " 과목명 :" + subName + " 학점" + credit);
 		System.out.println("교수명 :" + professor + " 시수" + time + " 시간표 :" + timeTable + " 강의실 :" + room);
