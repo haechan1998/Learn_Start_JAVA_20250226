@@ -55,13 +55,6 @@ public class Character {
 		this.item = item;
 	}
 
-//	public ArrayList<Hint> getHint() {
-//		return hint;
-//	}
-//
-//	public void setHint(ArrayList<Hint> hint) {
-//		this.hint = hint;
-//	}
 	
 	// 아직 toString 을 만들지 않았다.
 	
