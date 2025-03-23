@@ -11,7 +11,7 @@ public class Room {
 	// 정답
 	private String answer;
 	// 방 클리어 여부
-	private boolean isclear;
+	private boolean isClear;
 	
 	public Room() {}
 
@@ -21,12 +21,18 @@ public class Room {
 		this.roomConcept = roomConcept;
 		this.quiz = quiz;
 		this.answer = answer;
-		this.isclear = false; // 클리어 하면 컨트롤러에서 true 로 변경.
+		this.isClear = false; // 클리어 하면 컨트롤러에서 true 로 변경.
 	}
 	
 	// 방의 정보.
 	public void infomationRoom() {
-		System.out.println("현재 "+roomNumber+"번 방에 있습니다...");
+		System.out.print(roomNumber+"번"+" "+roomConcept+"의 방 ");
+		if(isClear) {
+			System.out.println("클리어 O");
+		}else {
+			System.out.println("클리어 X");
+		}
+		return;
 	}
 
 	public int getRoomNumber() {
@@ -60,13 +66,13 @@ public class Room {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
-	public boolean isIsclear() {
-		return isclear;
+	
+	public boolean getIsClear() {
+		return isClear;
 	}
 
-	public void setIsclear(boolean isclear) {
-		this.isclear = isclear;
+	public void setIsClear(boolean isClear) {
+		this.isClear = isClear;
 	}
 	
 }

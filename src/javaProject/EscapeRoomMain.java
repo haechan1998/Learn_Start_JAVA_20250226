@@ -35,38 +35,85 @@ public class EscapeRoomMain {
 		 Scanner sc = new Scanner(System.in);
 		 Character player = new Character();
 		 EscapeRoomController roomController = new EscapeRoomController();
+		 
 		 String starter = ""; // 게임 시작 여부
-		 int menu = 0;
+		 int menuSelect = 0, shouldSolveProblem = 0, roomIndex = 0, itemIndex = 0;
+		 String answer = "";
 		 
 		 // 기본 방 구성 세팅
 		 roomController.settingRoom();
-		 
-		 while(true) {
+		 start:while(true) {
 			 System.out.println("게임을 시작하시겠습니까? (Y/N)");
 			 starter = sc.next();
 			 if(starter.equalsIgnoreCase("Y")) {
 				 System.out.println("방탈출 게임을 시작."); // 화면 메서드 받기. 진행 방식은 반복문으로. 탈출 조건은 소지품 배열이 정해진 숫자 이상인경우.
 				 
-				 do {
+				 escapeGame:do {
 					 
 					 System.out.println("1.움직이기 / 2.소지품확인 / 3.방둘러보기");
 					 System.out.println("아직 움직이는거 밖에 못한다.");
-					 menu = sc.nextInt();
-					 switch(menu) {
+					 menuSelect = sc.nextInt();
+					 switch(menuSelect) {
 					 // 1.움직이기 / 2.소지품확인 / 3.방둘러보기 (일단 이정도만 정하고 해보자...)
 					 case 1:
 						 System.out.println("이동할 방향을 선택하세요.");
-						 roomController.directionRoom(sc);
-						 break;
-					 case 2:
-						 break;
-					 case 3:
+						 roomIndex = roomController.directionRoom(sc); 
+						 roomController.infomationRoom(roomIndex);
 						 break;
 						 
+					 case 2:
+						 player.printCharacterItem();
+						 break;
+						 
+					 case 3:
+						 // 방 둘러보기를 통하여 문제의 클리어 유무를 확인 할 수 있다.
+						 roomController.searchRoom(roomIndex);
+						 if(roomController.getRoomList().get(roomIndex).getIsClear()) {
+							 continue escapeGame; // 이미 문제를 클리어 했을경우 돌아간다.
+						 }else {
+							 // 문제를 아직 클리어 하지 못했을 경우.
+							 System.out.println("1.문제풀기 / 2.돌아가기");
+							 shouldSolveProblem = sc.nextInt();
+							 
+							 switch(shouldSolveProblem) {
+							 case 1:
+								 // 문제 출제.
+								 System.out.println("정답 1, 오답 0");
+								 System.out.println("정답 입력하기.");
+								 answer = roomController.isCorrect(sc);
+								 // 정답인경우 "정답", 오답인경우 "오답"
+								 if(answer.equals("정답")) {
+									 // 문제를 맞췄을 경우
+									 // 방 클리어를 true 로 바꿔준다
+									 roomController.clearRoom(roomIndex);
+									 // 소지품을 캐릭터에 넣는다.
+									 roomController.PrintRewordItem(roomIndex);
+									 player.getItem().add(itemIndex, roomController.rewordItem(roomIndex));
+									 itemIndex++;
+									 
+								 }else if(answer.equals("오답")) {
+									 // 문제를 틀렸을 경우. 생명력 1 차감
+									 System.out.println("틀렸다... 다시 생각해보자...");
+									 player.setCharaterLife(player.getCharaterLife()-1);
+									 player.printCharacterLife();
+									 
+								 }
+								 answer = null;
+								 
+								 break;
+							 case 2:
+								 System.out.println("다른곳을 더 둘러보고오자");
+								 continue escapeGame;
+							 default:
+								 System.out.println("다시입력해주세요");
+								 break;
+							 }
+						 }
 					 }
 					 
 				 }while(player.getCharaterLife() != 0);
 				 // player 의 남은 체력이 0이 되는경우 게임 종료. 기본 체력은 10. 게임 진행동안 체력 회복요소 존재.
+				 break start;
 				 
 			 }else if(starter.equalsIgnoreCase("N")) {
 				 break;
@@ -81,49 +128,6 @@ public class EscapeRoomMain {
 			 System.out.println("게임이 종료되었습니다.");
 		 }
 		 sc.close();
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
 		 
 		
 	}

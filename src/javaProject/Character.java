@@ -19,8 +19,20 @@ public class Character {
 	}
 	
 	// 캐릭터의 남은 생명.
-	public void characterLifePrint() {
+	public void printCharacterLife() {
 		System.out.println("남은 하트의 개수 : " + charaterLife + "개");
+	}
+	
+	// 캐릭터의 소지품 확인.
+	public void printCharacterItem() {
+		if(item.size() == 0) {
+			System.out.println("소지품이 없습니다.");
+		}else{
+			for(String n : item) {
+				System.out.println(n);
+			}
+		}
+			
 	}
 
 	public int getCharaterCode() {
