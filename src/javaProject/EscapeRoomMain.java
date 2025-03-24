@@ -26,7 +26,7 @@ public class EscapeRoomMain {
 		 *			-a 방을 둘러봐야 문제가 나오는 형식.(-- 에서 무언갈 발견했다.)
 		 * 
 		 * 4. 방 클리어 출력
-		 * 
+		 * -
 		 * 5. 탈출 출력
 		 * 
 		 * 이런식으로 흘러가는 구조로 진행하고, 추가할것이 있다면 차후 추가.
@@ -42,6 +42,10 @@ public class EscapeRoomMain {
 		 
 		 // 기본 방 구성 세팅
 		 roomController.settingRoom();
+		 roomController.shuffleRoom();
+		 for(Room n : roomController.getRoomList()) {
+			 System.out.println(n);
+		 }
 		 start:while(true) {
 			 System.out.println("게임을 시작하시겠습니까? (Y/N)");
 			 starter = sc.next();
@@ -51,7 +55,6 @@ public class EscapeRoomMain {
 				 escapeGame:do {
 					 
 					 System.out.println("1.움직이기 / 2.소지품확인 / 3.방둘러보기");
-					 System.out.println("아직 움직이는거 밖에 못한다.");
 					 menuSelect = sc.nextInt();
 					 switch(menuSelect) {
 					 // 1.움직이기 / 2.소지품확인 / 3.방둘러보기 (일단 이정도만 정하고 해보자...)
@@ -78,9 +81,8 @@ public class EscapeRoomMain {
 							 switch(shouldSolveProblem) {
 							 case 1:
 								 // 문제 출제.
-								 System.out.println("정답 1, 오답 0");
 								 System.out.println("정답 입력하기.");
-								 answer = roomController.isCorrect(sc);
+								 answer = roomController.isCorrect(roomController.getRoomList().get(roomIndex).getRoomNumber(),sc);
 								 // 정답인경우 "정답", 오답인경우 "오답"
 								 if(answer.equals("정답")) {
 									 // 문제를 맞췄을 경우

@@ -25,14 +25,21 @@ public class Room {
 	}
 	
 	// 방의 정보.
-	public void infomationRoom() {
-		System.out.print(roomNumber+"번"+" "+roomConcept+"의 방 ");
+	public void infomationRoom(int index) {
+		System.out.print((index+1)+"번"+" "+roomConcept+"의 방 ");
 		if(isClear) {
 			System.out.println("클리어 O");
 		}else {
 			System.out.println("클리어 X");
 		}
 		return;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Room [roomNumber=" + roomNumber + ", roomConcept=" + roomConcept + ", quiz=" + quiz + ", answer="
+				+ answer + ", isClear=" + isClear + "]";
 	}
 
 	public int getRoomNumber() {

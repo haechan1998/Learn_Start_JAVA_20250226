@@ -2,23 +2,54 @@ package javaProject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class EscapeRoomController {
 	
 	private ArrayList<Room> roomList = new ArrayList<>();
+	private ArrayList<Quiz> quizList = new ArrayList<>();
 	private int roomIndex;
 	
 	// 방 만들어놓기.
 	public void settingRoom() {
+		// 퀴즈List를 가져와서 배정된 퀴즈를 컨셉, 문제에 넣는걸 구현하자.. 랜덤하게!
+		quizSettingRoom();
+		shuffleQuiz();
+		// 방에 퀴즈를 배정해서 6개 만든다.
+		for(int i=0; i<6; i++) {
+			roomList.add(new Room(i+1, quizList.get(i).getQuizConcept(), quizList.get(i).getQuiz(), quizList.get(i).getAnswer()));
+			
+		}
+//		roomList.add(new Room(1, "컨셉1", "문제1", "정답1"));
+//		roomList.add(new Room(2, "컨셉2", "문제2", "정답2"));
+//		roomList.add(new Room(3, "컨셉3", "문제3", "정답3"));
+//		roomList.add(new Room(4, "컨셉4", "문제4", "정답4"));
+//		roomList.add(new Room(5, "컨셉5", "문제5", "정답5"));
+//		roomList.add(new Room(6, "컨셉6", "문제6", "정답6"));
 		
-		roomList.add(new Room(1, "컨셉1", "문제1", "정답1"));
-		roomList.add(new Room(2, "컨셉2", "문제2", "정답2"));
-		roomList.add(new Room(3, "컨셉3", "문제3", "정답3"));
-		roomList.add(new Room(4, "컨셉4", "문제4", "정답4"));
-		roomList.add(new Room(5, "컨셉5", "문제5", "정답5"));
-		roomList.add(new Room(6, "컨셉6", "문제6", "정답6"));
+	}
+	
+	public void quizSettingRoom() {
+		// 예시
+		quizList.add(new Quiz("[수수께끼]", "못 사온다고 해놓고 사온 것은?", "못"));
+		quizList.add(new Quiz("[속담]", "아무리 작은 것이라도 모이고 모이면 나중에 큰 것이 되는 것이라는 뜻의 속담으로  \"티끌 모아 __\" 에서의 __ 에 들어갈 단어는?", "태산"));
+		quizList.add(new Quiz("[넌센스]","세상에서 가장 쉬운 숫자는?", "십구만"));
+		quizList.add(new Quiz("[영단어 맞히기]", "자바에서 정수형 데이터를 나타내는 영어 단어는?","integer"));
+		quizList.add(new Quiz("[기본적인 자바 개념]", "자바에서 객체를 만들 때 사용하는 키워드는?","new"));
+		quizList.add(new Quiz("[수수께끼]", "무가 자기소개를 할 때 하는 말은?","나무"));
 		
+	}
+	
+	// 퀴즈 랜덤으로 섞기.
+	public void shuffleQuiz() {
+		Collections.shuffle(quizList);
+	}
+	// 방 배열 랜덤으로 섞기
+	public void shuffleRoom() {
+		Collections.shuffle(roomList);
 	}
 	
 	// 1. 방을 클리어 했을경우 넣어주는 메서드. -> 클리어 여부를 true 로 바꿔준다.
@@ -98,7 +129,7 @@ public class EscapeRoomController {
 	// 방의 대한 정보 출력.
 	public void infomationRoom(int index) {
 		// 1.번 메서드를 참조하여 인덱스를 가져온다.
-		roomList.get(index).infomationRoom();
+		roomList.get(index).infomationRoom(index);
 		
 		
 	}
@@ -173,20 +204,21 @@ public class EscapeRoomController {
 		}
 		
 	}
-	
-	public String isCorrect(/*메서드 구현시 여기에 문제넘버와 정답을 준다.*/Scanner sc) {
-		// 일단 정답일 경우 1, 아닐경우 0
+	// 정답 입력받기.
+	public String isCorrect(/*메서드 구현시 여기에 문제넘버와 정답을 준다.*/int roomNumber, Scanner sc) {
 		String correctAnswer = "정답";
 		String inCorrectAnswer = "오답";
-		int answer = sc.nextInt();
-		// 정답 1, 오답 0
-		if(answer == 1) {
+		String answer = sc.next();
+		
+		// 입력받은 정답이 방에 배정된 문제의 정답과 같은지 비교.
+		if(answer.equalsIgnoreCase(quizList.get(roomNumber-1).getAnswer())) {
 			return correctAnswer;
-		}else if (answer == 0) {
+		}else if (!answer.equalsIgnoreCase(quizList.get(roomNumber-1).getAnswer())) {
 			return inCorrectAnswer;
 		}
 		return null;
 	}
+	
 	
 	public ArrayList<Room> getRoomList() {
 		return roomList;
