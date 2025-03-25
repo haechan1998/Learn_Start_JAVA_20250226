@@ -2,9 +2,7 @@ package javaProject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class EscapeRoomController {
@@ -12,6 +10,9 @@ public class EscapeRoomController {
 	private ArrayList<Room> roomList = new ArrayList<>();
 	private ArrayList<Quiz> quizList = new ArrayList<>();
 	private int roomIndex;
+	private Screen screen = new Screen();
+	private MiniGame miniGame = new MiniGame();
+	
 	
 	// 방 만들어놓기.
 	public void settingRoom() {
@@ -36,19 +37,111 @@ public class EscapeRoomController {
 		// 예시
 		quizList.add(new Quiz("[수수께끼]", "못 사온다고 해놓고 사온 것은?", "못"));
 		quizList.add(new Quiz("[속담]", "아무리 작은 것이라도 모이고 모이면 나중에 큰 것이 되는 것이라는 뜻의 속담으로  \"티끌 모아 __\" 에서의 __ 에 들어갈 단어는?", "태산"));
-		quizList.add(new Quiz("[넌센스]","세상에서 가장 쉬운 숫자는?", "십구만"));
+		quizList.add(new Quiz("[넌센스]","세상에서 가장 쉬운 숫자는?(한글)", "십구만"));
 		quizList.add(new Quiz("[영단어 맞히기]", "자바에서 정수형 데이터를 나타내는 영어 단어는?","integer"));
 		quizList.add(new Quiz("[기본적인 자바 개념]", "자바에서 객체를 만들 때 사용하는 키워드는?","new"));
 		quizList.add(new Quiz("[수수께끼]", "무가 자기소개를 할 때 하는 말은?","나무"));
 		
 	}
 	
+	// 로딩화면 만들기.
+	public void loadingRoom() {
+		// 방이 생성된다는 메세지와 함께 로딩 화면 출력...
+		try {
+			System.out.println();
+			System.out.print("방을 생성하고있습니다.");
+			Thread.sleep(700);
+			System.out.print(".");
+			Thread.sleep(700);
+			System.out.print(".");
+			Thread.sleep(700);
+			System.out.print(".");
+			Thread.sleep(700);
+			System.out.print(".");
+			System.out.println();
+			System.out.println();
+			System.out.print("방을 섞는중입니다.");
+			Thread.sleep(700);
+			System.out.print(".");
+			Thread.sleep(700);
+			System.out.print(".");
+			Thread.sleep(700);
+			System.out.print(".");
+			Thread.sleep(700);
+			System.out.print(".");
+			System.out.println();
+			System.out.println();
+			System.out.println("로딩 완료!!");
+			System.out.println();
+			randomPrintRoom();
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void randomPrintRoom() {
+		int random = (int)(Math.random()*3)+1;
+		switch(random) {
+		case 1: screen.room1(); break;
+		case 2: screen.room2(); break;
+		case 3: screen.room3(); break;
+		}
+			
+	}
+	public void movementplayer() {
+		try {
+			int millis = 500;
+			Thread.sleep(millis);
+			System.out.println("다른 방으로 이동하고 있습니다.");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println("뚜벅");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println("뚜벅");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println("뚜벅");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println("뚜벅");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println("뚜벅");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println("뚜벅");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println("뚜벅...");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.print(".");
+			Thread.sleep(millis);
+			System.out.print(".");
+			Thread.sleep(millis);
+			System.out.print(".");
+			Thread.sleep(600);
+			System.out.print(" 도착!");
+			System.out.println();
+			System.out.println();
+			
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	// 퀴즈 랜덤으로 섞기.
 	public void shuffleQuiz() {
+		
 		Collections.shuffle(quizList);
 	}
 	// 방 배열 랜덤으로 섞기
 	public void shuffleRoom() {
+		
 		Collections.shuffle(roomList);
 	}
 	
@@ -70,7 +163,7 @@ public class EscapeRoomController {
 		 * */
 		
 		String direction = sc.next().toUpperCase();
-		
+		movementplayer();
 		switch(direction) {
 		 case "W":
 			 // 위로 움직이기. -> 인덱스 값을 -3 한다.
@@ -128,6 +221,7 @@ public class EscapeRoomController {
 	// 3. 움직인 위치를 기반으로 해당하는 방의 인덱스를 가지는 메서드
 	// 방의 대한 정보 출력.
 	public void infomationRoom(int index) {
+		
 		// 1.번 메서드를 참조하여 인덱스를 가져온다.
 		roomList.get(index).infomationRoom(index);
 		
@@ -136,6 +230,7 @@ public class EscapeRoomController {
 	
 	// 4. 방을 클리어 했을경우 리워드
 	public void PrintRewordItem(int roomIndex) {
+		
 		String item1 = "소지품 1";
 		String item2 = "소지품 2";
 		String item3 = "소지품 3";
@@ -169,6 +264,7 @@ public class EscapeRoomController {
 	}
 	
 	public String rewordItem(int roomIndex) {
+		
 		String item1 = "소지품 1";
 		String item2 = "소지품 2";
 		String item3 = "소지품 3";
@@ -194,18 +290,21 @@ public class EscapeRoomController {
 			}
 	}
 	
-	// 방 둘러보기를 통한 문제 출제.
+	// 5. 방 둘러보기를 통한 문제 출제.
 	public void searchRoom(int index) { // 방 번호를 입력 받는다.
+		
 		if(!roomList.get(index).getIsClear()) {
 			System.out.println("여기 뭔가 있다...");
-			System.out.println(roomList.get(index).getQuiz()); 
+			System.out.println();
+			System.out.println("문제: " + roomList.get(index).getQuiz()); 
 		}else {
 			System.out.println("이미 문제를 풀었다...");
 		}
 		
 	}
-	// 정답 입력받기.
+	// 6. 정답 입력받기.
 	public String isCorrect(/*메서드 구현시 여기에 문제넘버와 정답을 준다.*/int roomNumber, Scanner sc) {
+		
 		String correctAnswer = "정답";
 		String inCorrectAnswer = "오답";
 		String answer = sc.next();
@@ -218,7 +317,54 @@ public class EscapeRoomController {
 		}
 		return null;
 	}
+	// 7. 방출력 메서드
+	public void printRoom(int roomIndex) {
+		switch(roomIndex) {
+		case 0: screen.printRoom1(); break;
+		case 1: screen.printRoom2(); break;
+		case 2: screen.printRoom3(); break;
+		case 3: screen.printRoom4(); break;
+		case 4: screen.printRoom5(); break;
+		case 5: screen.printRoom6(); break;
+		default: screen.defaultRoom(); break;
+		}
+	}
+	// 8. 최종방 넘어가는 메서드 // 메인 케이스 추가 .
+	public void lastRoom() {
+		
+	}
 	
+	// 9. 최종방 문제.
+	public boolean miniGame() throws IOException {
+		
+		int random = (int)(Math.random()*3)+1;
+		int isWin = -1;
+		switch(random) {
+		
+		case 1:
+			isWin = miniGame.bingoGame();
+			if(isWin == 1) {
+				return true;
+			}else if(isWin == 0) {
+				return false;
+			}
+			
+		case 2:
+			isWin = miniGame.memoryGame();
+			if(isWin == 1) {
+				return true;
+			}else if(isWin == 0) {
+				return false;
+			}
+			
+		case 3:
+			System.out.println("미니게임 아직 안넣음");
+			return true;
+			
+		default:
+			return false;
+		}
+	}
 	
 	public ArrayList<Room> getRoomList() {
 		return roomList;

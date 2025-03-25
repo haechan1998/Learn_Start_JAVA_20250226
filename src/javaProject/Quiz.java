@@ -55,11 +55,18 @@ public class Quiz {
 	// 위 문제들을 랜덤으로 담는게 좋겠다.
 	
 	// 컨셉, 문제, 정답.
+	private int quizNumber;
 	private String quizConcept;
 	private String quiz;
 	private String answer;
 	
 	public Quiz() {}
+	
+	public Quiz(int quizNumber, String quiz) {
+        this.quizNumber = quizNumber;
+        this.quiz = quiz;
+    }
+
 	
 	public Quiz(String quizConcept, String quiz, String answer) {
 		super();
@@ -92,6 +99,12 @@ public class Quiz {
 		this.answer = answer;
 	}
 
-	
-	
+	public int getQuizNumber() {
+		return quizNumber;
+	}
+
+	public void setQuizNumber(int quizNumber) {
+		this.quizNumber = quizNumber;
+	}
+
 }

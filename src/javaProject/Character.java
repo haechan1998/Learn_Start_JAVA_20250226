@@ -7,6 +7,7 @@ public class Character {
 	private int charaterCode; // 캐릭터를 호출할 코드.
 	private String chareterName; // 캐릭터의 이름.
 	private int charaterLife; // 캐릭터의 남은 생명.
+	private Screen screen = new Screen();
 	
 	// 캐릭터가 소지한 아이템.
 	private ArrayList<String> item = new ArrayList<>();
@@ -20,7 +21,20 @@ public class Character {
 	
 	// 캐릭터의 남은 생명.
 	public void printCharacterLife() {
+		switch(charaterLife) {
+		case 10: screen.healthPointPrint10(); break;
+		case 9: screen.healthPointPrint9(); break;
+		case 8: screen.healthPointPrint8(); break;
+		case 7: screen.healthPointPrint7(); break;
+		case 6: screen.healthPointPrint6(); break;
+		case 5: screen.healthPointPrint5(); break;
+		case 4: screen.healthPointPrint4(); break;
+		case 3: screen.healthPointPrint3(); break;
+		case 2: screen.healthPointPrint2(); break;
+		case 1: screen.healthPointPrint1(); break;
+		}
 		System.out.println("남은 하트의 개수 : " + charaterLife + "개");
+		System.out.println();
 	}
 	
 	// 캐릭터의 소지품 확인.

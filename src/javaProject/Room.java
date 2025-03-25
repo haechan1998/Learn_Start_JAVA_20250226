@@ -26,11 +26,11 @@ public class Room {
 	
 	// 방의 정보.
 	public void infomationRoom(int index) {
-		System.out.print((index+1)+"번"+" "+roomConcept+"의 방 ");
+		System.out.print("		<<"+(index+1)+"."+" "+roomConcept+"의 방>> ");
 		if(isClear) {
-			System.out.println("클리어 O");
+			System.out.println("Clear");
 		}else {
-			System.out.println("클리어 X");
+			System.out.println("방을 살펴보자..");
 		}
 		return;
 	}
