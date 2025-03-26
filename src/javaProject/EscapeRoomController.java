@@ -41,6 +41,15 @@ public class EscapeRoomController {
 		quizList.add(new Quiz("[영단어 맞히기]", "자바에서 정수형 데이터를 나타내는 영어 단어는?","integer"));
 		quizList.add(new Quiz("[기본적인 자바 개념]", "자바에서 객체를 만들 때 사용하는 키워드는?","new"));
 		quizList.add(new Quiz("[수수께끼]", "무가 자기소개를 할 때 하는 말은?","나무"));
+		quizList.add(new Quiz("[속담]","철모르고 함부로 덤비는 것을 뜻하는 속담으로 \"하룻강아지 _ 무서운 줄 모른다\" 에서의 _가 뜻하는 단어는?" , "범"));
+		quizList.add(new Quiz("[넌센스]","소가 계단을 오르면?","소오름"));
+		quizList.add(new Quiz("[숫자 암호]","다음 숫자의 규칙을 찾아 빈칸에 알맞은 숫자를 넣으시오. \n1, 3, 6, 10, __","15"));
+		quizList.add(new Quiz("[영단어 맞히기]","자바에서 리턴할 값이 없다는 의미의 리턴 타입의 영어 단어는?","void"));
+		quizList.add(new Quiz("[자바]","같은 패키지에서만 가능 (나 + 패키지)한 접근제어자는?","default"));
+		quizList.add(new Quiz("[기본적인 자바 개념]","자바 프로그램이 실행되면 OS로부터 메모리를 할당받아 실제 작업을 수행하는 단위를 나타내는 영어 단어는?","Thread"));
+		quizList.add(new Quiz("[숫자 암호 (규칙찾기)]","2, 3, 5, 7, 11, __\n빈칸에 들어갈 다음 숫자는?","13"));
+		quizList.add(new Quiz("[속담]","전체를 포괄적으로 보지 못하는 매우 좁은 소견이나 관찰을 비꼬는 말을 뜻하는 속담으로\n\"바늘구멍으로 __보기\" 에 들어갈 __ 단어는?","하늘"));
+		quizList.add(new Quiz("[수수께끼]","깨뜨리고 칭찬 받는 것은?","신기록"));
 		
 	}
 	
@@ -163,13 +172,14 @@ public class EscapeRoomController {
 		 * */
 		
 		String direction = sc.next().toUpperCase();
-		movementplayer();
+		
 		switch(direction) {
 		 case "W":
 			 // 위로 움직이기. -> 인덱스 값을 -3 한다.
 			 if(roomIndex < 3) { // 0 1 2 에 위치해있을경우 위로 가는것을 막는다.
 				 System.out.println("위로 갈 수 없습니다.");
 			 }else {
+				 movementplayer();
 				 System.out.println("위로 이동했습니다.");
 				 roomIndex -= 3; // 3 4 5 에서만 위로 이동이 가능하기 때문에 인덱스를 3 뺀다.
 				 return roomIndex;
@@ -181,6 +191,7 @@ public class EscapeRoomController {
 			 if(roomIndex == 0 || roomIndex == 3) { // 0 3 에 위치해있을경우 왼쪽으로 가는것을 막는다.
 				 System.out.println("왼쪽으로 갈 수 없습니다.");
 			 }else {
+				 movementplayer();
 				 System.out.println("왼쪽으로 이동했습니다.");
 				 roomIndex -= 1; // 1 2 4 5 에서만 왼쪽으로 이동이 가능하기 때문에 인덱스를 1 뺀다.
 				 return roomIndex;
@@ -192,6 +203,7 @@ public class EscapeRoomController {
 				 if(roomIndex > 2 && roomIndex < 6) { // 3 4 5 에 위치해있을경우 아래로 가는것을 막는다.
 					 System.out.println("아래로 갈 수 없습니다.");
 				 }else {
+					 movementplayer();
 					 System.out.println("아래로 이동했습니다.");
 					 roomIndex += 3; // 0 1 2 에서만 아래로 이동이 가능하기 때문에 인덱스를 3 더한다.
 					 return roomIndex;
@@ -203,6 +215,7 @@ public class EscapeRoomController {
 			 if(roomIndex == 2 || roomIndex == 5) { // 2 5 에 위치해있을경우 오른쪽으로 가는것을 막는다.
 				 System.out.println("오른쪽으로 갈 수 없습니다.");
 			 }else {
+				 movementplayer();
 				 System.out.println("오른쪽으로 이동했습니다.");
 				 roomIndex += 1; // 0 1 3 4 에서만 오른쪽으로 이동이 가능하기 때문에 인덱스를 1 더한다.
 				 return roomIndex;
@@ -229,16 +242,16 @@ public class EscapeRoomController {
 	}
 	
 	// 4. 방을 클리어 했을경우 리워드
-	public void PrintRewordItem(int roomIndex) {
+	public void PrintRewordItem(int roomNumber) {
 		
-		String item1 = "소지품 1";
-		String item2 = "소지품 2";
-		String item3 = "소지품 3";
-		String item4 = "소지품 4";
-		String item5 = "소지품 5";
-		String item6 = "소지품 6";
+		String item1 = "카드팩(Cardpack)";
+		String item2 = "열쇠(kEy)";
+		String item3 = "주사위(diSe)";
+		String item4 = "자석(mAgnet)";
+		String item5 = "목걸이(nEcklace)";
+		String item6 = "나무조각(woodPiece)";
 				
-		switch(roomIndex+1) {
+		switch(roomNumber) {
 			case 1:
 				System.out.println("["+ item1 + "] 을 얻었다!!");
 				return;
@@ -263,16 +276,16 @@ public class EscapeRoomController {
 			}
 	}
 	
-	public String rewordItem(int roomIndex) {
+	public String rewordItem(int roomNumber) {
 		
-		String item1 = "소지품 1";
-		String item2 = "소지품 2";
-		String item3 = "소지품 3";
-		String item4 = "소지품 4";
-		String item5 = "소지품 5";
-		String item6 = "소지품 6";
+		String item1 = "카드팩(Cardpack)";
+		String item2 = "열쇠(kEy)";
+		String item3 = "주사위(diSe)";
+		String item4 = "자석(mAgnet)";
+		String item5 = "목걸이(nEcklace)";
+		String item6 = "나무조각(woodPiece)";
 				
-		switch(roomIndex+1) {
+		switch(roomNumber) {
 			case 1:
 				return item1;
 			case 2:
@@ -303,20 +316,25 @@ public class EscapeRoomController {
 		
 	}
 	// 6. 정답 입력받기.
-	public String isCorrect(/*메서드 구현시 여기에 문제넘버와 정답을 준다.*/int roomNumber, Scanner sc) {
+	public String isCorrect(int roomNumber, Scanner sc) {
 		
-		String correctAnswer = "정답";
-		String inCorrectAnswer = "오답";
-		String answer = sc.next();
-		
-		// 입력받은 정답이 방에 배정된 문제의 정답과 같은지 비교.
-		if(answer.equalsIgnoreCase(quizList.get(roomNumber-1).getAnswer())) {
-			return correctAnswer;
-		}else if (!answer.equalsIgnoreCase(quizList.get(roomNumber-1).getAnswer())) {
-			return inCorrectAnswer;
-		}
-		return null;
+	    String correctAnswer = "정답";
+	    String inCorrectAnswer = "오답";
+	    String input = sc.next(); 
+	    
+	    String correct = quizList.get(roomNumber - 1).getAnswer(); // 해당 방의 정답
+
+	    // 대소문자 구분 없이 정답 비교
+	    if (input.equalsIgnoreCase(correct)) {
+	        return correctAnswer;
+	    } else if (correct.equalsIgnoreCase("integer") && input.equalsIgnoreCase("int")) {
+	        // "정수형" 문제일 경우 int도 정답으로 인정
+	        return correctAnswer;
+	    } else {
+	        return inCorrectAnswer;
+	    }
 	}
+
 	// 7. 방출력 메서드
 	public void printRoom(int roomIndex) {
 		switch(roomIndex) {
@@ -329,15 +347,201 @@ public class EscapeRoomController {
 		default: screen.defaultRoom(); break;
 		}
 	}
-	// 8. 최종방 넘어가는 메서드 // 메인 케이스 추가 .
-	public void lastRoom() {
-		
+	// 8. 최종방 넘어가는 메서드 // 메인 케이스 추가 . // 캐릭터 클래스에서 만들었다.
+	public void printMessage() {
+		try {
+			System.out.println();
+			for(int i=0; i<3; i++) {
+				Thread.sleep(500);
+				System.out.print(".");
+			}
+			int millis = 200;
+			
+			Thread.sleep(1000);
+			System.out.print("혹");
+			Thread.sleep(millis);
+			System.out.print("시");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("소");
+			Thread.sleep(millis);
+			System.out.print("지");
+			Thread.sleep(millis);
+			System.out.print("품");
+			Thread.sleep(millis);
+			System.out.print("에");
+			Thread.sleep(millis);
+			System.out.print("서");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("키");
+			Thread.sleep(millis);
+			System.out.print("워");
+			Thread.sleep(millis);
+			System.out.print("드");
+			Thread.sleep(millis);
+			System.out.print("를");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("찾");
+			Thread.sleep(millis);
+			System.out.print("으");
+			Thread.sleep(millis);
+			System.out.print("셨");
+			Thread.sleep(millis);
+			System.out.print("나");
+			Thread.sleep(millis);
+			System.out.print("요");
+			Thread.sleep(millis);
+			System.out.print("?");
+			Thread.sleep(millis);
+			System.out.print("?");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println();
+			
+			for(int i=0; i<3; i++) {
+				Thread.sleep(500);
+				System.out.print(".");
+			}
+			
+			Thread.sleep(1000);
+			Thread.sleep(millis);
+			System.out.print("그");
+			Thread.sleep(millis);
+			System.out.print("렇");
+			Thread.sleep(millis);
+			System.out.print("다");
+			Thread.sleep(millis);
+			System.out.print("면");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("당");
+			Thread.sleep(millis);
+			System.out.print("신");
+			Thread.sleep(millis);
+			System.out.print("은");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("진");
+			Thread.sleep(millis);
+			System.out.print("정");
+			Thread.sleep(millis);
+			System.out.print("으");
+			Thread.sleep(millis);
+			System.out.print("로");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("이");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("게");
+			Thread.sleep(millis);
+			System.out.print("임");
+			Thread.sleep(millis);
+			System.out.print("을");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("클");
+			Thread.sleep(millis);
+			System.out.print("리");
+			Thread.sleep(millis);
+			System.out.print("어");
+			Thread.sleep(millis);
+			System.out.print("하");
+			Thread.sleep(millis);
+			System.out.print("셨");
+			Thread.sleep(millis);
+			System.out.print("습");
+			Thread.sleep(millis);
+			System.out.print("니");
+			Thread.sleep(millis);
+			System.out.print("다");
+			Thread.sleep(millis);
+			System.out.print(".");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println();
+			
+			for(int i=0; i<3; i++) {
+				Thread.sleep(500);
+				System.out.print(".");
+			}
+			
+			Thread.sleep(1000);
+			Thread.sleep(millis);
+			System.out.print("당");
+			Thread.sleep(millis);
+			System.out.print("신");
+			Thread.sleep(millis);
+			System.out.print("이");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("찾");
+			Thread.sleep(millis);
+			System.out.print("은");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("마");
+			Thread.sleep(millis);
+			System.out.print("지");
+			Thread.sleep(millis);
+			System.out.print("막");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("퍼");
+			Thread.sleep(millis);
+			System.out.print("즐");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("조");
+			Thread.sleep(millis);
+			System.out.print("각");
+			Thread.sleep(millis);
+			System.out.print("을");
+			Thread.sleep(millis);
+			System.out.print(" ");
+			Thread.sleep(millis);
+			System.out.print("입");
+			Thread.sleep(millis);
+			System.out.print("력");
+			Thread.sleep(millis);
+			System.out.print("해");
+			Thread.sleep(millis);
+			System.out.print("주");
+			Thread.sleep(millis);
+			System.out.print("세");
+			Thread.sleep(millis);
+			System.out.print("요");
+			Thread.sleep(millis);
+			System.out.print("!");
+			Thread.sleep(millis);
+			System.out.print("!");
+			Thread.sleep(millis);
+			System.out.println();
+			System.out.println();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	// 9. 최종방 문제.
 	public boolean miniGame() throws IOException {
 		
-		int random = (int)(Math.random()*3)+1;
+		int random = (int)(Math.random()*5)+1;
 		int isWin = -1;
 		switch(random) {
 		
@@ -358,8 +562,24 @@ public class EscapeRoomController {
 			}
 			
 		case 3:
-			System.out.println("미니게임 아직 안넣음");
+			System.out.println("미로게임이 등장할 예정");
 			return true;
+			
+		case 4:
+			isWin = miniGame.reactionGame();
+			if(isWin == 1) {
+				return true;
+			}else if(isWin == 0) {
+				return false;
+			}
+			
+		case 5:
+			isWin = miniGame.diseGame();
+			if(isWin == 1) {
+				return true;
+			}else if(isWin == 0) {
+				return false;
+			}
 			
 		default:
 			return false;

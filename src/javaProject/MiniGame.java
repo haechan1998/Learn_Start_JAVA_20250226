@@ -1,10 +1,12 @@
 package javaProject;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MiniGame {
 	private String answer;
+	private Screen screen = new Screen();
 	
 	// 1. 빙고게임
 	public int bingoGame() throws IndexOutOfBoundsException {
@@ -218,36 +220,202 @@ public class MiniGame {
             }
         }
     }
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    
+    // 3. 미로 게임
+    public int mazeGame() {
+    	int end = 0;
+    	System.out.println();
+    	System.out.println("			<< 미로 게임 >>");
+    	System.out.println("		       탈출구를 찾으세요!!");
+    	Scanner sc = new Scanner(System.in);
+    	
+    	screen.mazePrint();
+    	while(true) {
+    		System.out.println("탈출구는? >");
+    		String exit= sc.next();
+    		if(exit.equals("1")) {
+    			System.out.println();
+    			System.out.println("실패...");
+    			return end;
+    		}else if(exit.equals("2")) {
+    			System.out.println();
+    			System.out.println("탈출!!!!!!");
+    			end = 1;
+    			return end;
+    		}else if(exit.equals("3")) {
+    			System.out.println();
+    			System.out.println("실패...");
+    			return end;
+    		}else {
+    			System.out.println("잘못입력하셨습니다.");
+    			continue;
+    		}
+    	}
+    	
+    }
+    
+    // 4. 반응속도 게임
+    public int reactionGame() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n<< 반응 속도 테스트 >>\n");
+        System.out.println("곧 '지금!' 이라는 단어가 나옵니다. 보이자마자 Enter 키를 누르세요!");
 
+        int end=0;
+        
+        
+        try {
+            int delay = (int) (Math.random() * 3000 + 2000); // 3~5초 랜덤 대기
+            Thread.sleep(delay);
+
+            System.err.println("지금!");
+            long startTime = System.nanoTime(); // 반응 시작 시간 측정
+
+            sc.nextLine(); // 사용자 입력 대기
+
+            long endTime = System.nanoTime(); // 반응 끝 시간 측정
+            double reactionTime = (endTime - startTime) / 1_000_000_000.0; // 초 단위 변환
+
+            System.out.println(String.format("당신의 반응 속도: %.3f초", reactionTime));
+
+            if (reactionTime <= 0.7) {
+                System.out.println("시간 안에 성공하셨습니다!");
+                end=1;
+                return end;
+            } else {
+                System.out.println("아쉽네요~ 좀 더 빠르게 반응해보세요!");
+                return end;
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return end;
+    }
+    
+    // 5. 주사위 게임
+    public int diseGame() {
+    	// 예전에 만둔 주사위 게임을 가져와보자
+    	// 주사위 3개가 같은수로 나올경우. 주사위 수 *3 / 주사위 2개가 같은수로 나올경우. 주사위 수 / 주사위 하나만 나올경우 - 주사위수의 가장 높은 수.
+    	// 스코어가 100점일경우 승리. 스코어가 -20 일경우 패배.
+    	System.out.println("		<< 주사위 게임!! >>");
+    	System.out.println();
+    	int score = 0 , count = 0, end = 0;
+    	int dise1 = 0, dise2 = 0, dise3 = 0;
+    	int max = 0;
+    	Scanner sc = new Scanner(System.in);
+    	int start = 0;
+    	diseGame:while(true) {
+    		
+    		System.out.println("	<< [1] 주사위 굴리기 | [2] 룰 >>");
+    		System.out.print("입력 >");
+    		while(true) {
+    			try {
+    				start = sc.nextInt();
+    			} catch (InputMismatchException e) {
+    				System.out.println();
+    				System.out.println("정수를 입력해주세요.");
+    				sc = new Scanner(System.in);
+    			}
+    			break;
+    		}
+    		
+    		switch(start) {
+    		case 1:
+    			System.out.println("주사위를 굴립니다.");
+    			try {
+					Thread.sleep(500);
+					System.out.println();
+					System.out.println("데굴");
+					Thread.sleep(500);
+					System.out.println();
+					System.out.println("데굴");
+					Thread.sleep(500);
+					System.out.println();
+					System.out.println("데굴");
+					Thread.sleep(1000);
+					System.out.println();
+					System.out.println("짠!!");
+					System.out.println();
+					
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+    			dise1 = (int)(Math.random()*6)+1;
+    			dise2 = (int)(Math.random()*6)+1;
+    			dise3 = (int)(Math.random()*6)+1;
+    			System.out.println("=============================================");
+    			System.out.println("		[" + dise1 + "]"+" "+"[" + dise2 + "]"+" "+ "[" + dise3 + "]");
+    			System.out.println("=============================================");
+    			// 주사위 3개중 가장 큰수 찾기.
+    			max = (Math.max(dise1, (Math.max(dise2, dise3))));
+    			
+    			if(dise1 == dise3 && dise1 == dise2) {
+    				// 주사위의 수가 3개 전부 일치할경우.
+    				System.out.println();
+    				System.out.println("주사위의 수가 전부 일치합니다!!");
+    				System.out.println();
+    				System.out.println("+"+dise1*5+"점");
+    				score += dise1*10;
+    			}else if(dise1 == dise3 || dise2 == dise3 || dise1 == dise2) {
+    				// 주사위의 수가 2개만 일치할경우.
+    				System.out.println();
+    				System.out.println("주사위의 수가 2개 일치합니다!!");
+    				System.out.println();
+    				if(dise1 == dise3) {
+    					score += dise1*5;
+    					System.out.println("+"+dise1*5+"점");
+    				}else if(dise2 == dise3) {
+    					score += dise2*5;
+    					System.out.println("+"+dise2*5+"점");
+    				}else {
+    					score += dise1*5;
+    					System.out.println("+"+dise1*5+"점");
+    				}
+    			}else {
+    				System.out.println();
+    				System.out.println("주사위의 수가 일치하지않습니다.");
+    				score -= max;
+    				System.out.println();
+    				System.out.println("-"+max+"점");
+    			}
+    			System.out.println();
+    			System.out.println("	현재 점수 : " + score + "점");
+    			System.out.println();
+    			count++;
+    			// 종료 키워드.
+    			if(score >= 100) {
+    				System.out.println();
+    				System.out.println(count+"번의 시도끝에 "+"점수를 "+score+"점 달성했습니다.");
+    				System.out.println("승리!!");
+    				end = 1;
+    				break diseGame;
+    			}else if(score <= -20) {
+    				System.out.println();
+    				System.out.println(count + "번의 시도끝에  " + "점수가 "+score+"점입니다....");
+    				System.out.println();
+    				System.out.println("패배...");
+    				break diseGame;
+    			}
+    			break;
+    			
+    		case 2:
+    			System.out.println("		<규칙>");
+    			System.out.println("1. 주사위 3개가 같은수로 나올경우. 주사위 수 * 10점 \n2. 주사위 2개가 같은수로 나올경우. 주사위 수 * 5점\n3. 주사위 하나만 나올경우. -(주사위수의 가장 높은 수)점");
+    			System.out.println();
+    			System.out.println("점수 100점 : 승리");
+    			System.out.println("점수 -20점 : 패배");
+    			
+    			System.out.println();
+    			break;
+    			
+    			default:
+    				System.out.println("잘못입력하셨습니다.");
+    				break;
+    		}
+    	}
+    	
+		return end;
+    }
+    
+    
+}

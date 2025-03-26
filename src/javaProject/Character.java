@@ -42,11 +42,50 @@ public class Character {
 		if(item.size() == 0) {
 			System.out.println("소지품이 없습니다.");
 		}else{
-			for(String n : item) {
-				System.out.println(n);
+			System.out.println("-- 소지품 목록 --");
+			System.out.println();
+			
+			if(item.size() == 6) {
+				System.out.println("소지품을 다 모았다!!");
+				System.out.println("지상으로 나가보자");
+				System.out.println("(물건들의 이름을 자세히 살펴보자..)");
+			}
+			
+			for(int i=0; i<item.size(); i++) {
+				System.out.println((i+1)+". "+item.get(i));
+				
 			}
 		}
 			
+	}
+	public void lastRoom() {
+		System.out.println();
+		System.out.println("모든 방을 클리어 했습니다!!");
+		try {
+			Thread.sleep(1000);
+			System.out.println();
+			System.out.println("지상으로 가는 문앞으로 갑니다...");
+			Thread.sleep(1000);
+			System.out.println();
+			System.out.println("물건들을 올려놓기 시작합니다...");
+			Thread.sleep(1000);
+			for(int i=0; i<item.size(); i++) {
+				System.out.println();
+				System.out.println("["+item.get(i)+"]"+ "을(를) 올려놓았습니다.");
+				Thread.sleep(1000);
+			}
+			System.out.println();
+			System.out.println("모든 물건을 올려놨습니다.");
+			Thread.sleep(1000);
+			System.out.println();
+			System.out.println("문제가 나옵니다. 준비하세요!!");
+			Thread.sleep(1500);
+			
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public int getCharaterCode() {

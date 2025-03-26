@@ -77,6 +77,7 @@ public class EscapeRoomMain {
 							System.out.println("이미 문제를 클리어한 방입니다.");
 							continue escapeGame;
 						} else {
+							System.out.println();
 							System.out.println("1.문제풀기 / 2.돌아가기");
 							while(true) {
 								try {
@@ -99,8 +100,8 @@ public class EscapeRoomMain {
 									System.out.println();
 									roomController.clearRoom(roomIndex);
 									System.out.println();
-									roomController.PrintRewordItem(roomIndex);
-									player.getItem().add(itemIndex, roomController.rewordItem(roomIndex));
+									roomController.PrintRewordItem(roomController.getRoomList().get(itemIndex).getRoomNumber());
+									player.getItem().add(itemIndex, roomController.rewordItem(roomController.getRoomList().get(itemIndex).getRoomNumber()));
 									itemIndex++;
 								} else if (answer.equals("오답")) {
 									screen.wrongPrint();
@@ -127,18 +128,19 @@ public class EscapeRoomMain {
 					// 마지막 방 넘어가기.
 					case 4:
 						// 테스트
-						player.getItem().add("1");
-						player.getItem().add("1");
-						player.getItem().add("1");
-						player.getItem().add("1");
-						player.getItem().add("1");
-						player.getItem().add("1");
+//						player.getItem().add("1");
+//						player.getItem().add("1");
+//						player.getItem().add("1");
+//						player.getItem().add("1");
+//						player.getItem().add("1");
+//						player.getItem().add("1");
 						// 테스트 지우기 //
 						
 						if(player.getItem().size() < 6) {
 							System.out.println("아직은 갈 수 없다...");
 							System.out.println();
 						}else {
+							player.lastRoom();
 							gameClear = roomController.miniGame();
 							
 							// 최종방을 클리어 했을경우.
@@ -177,6 +179,16 @@ public class EscapeRoomMain {
 				System.out.println("다시 입력해주세요.");
 			}
 		}
+		
+		roomController.printMessage();
+		System.out.println("입력해주세요!!!!! >");
+		String credit = sc.next();
+		if(credit.equalsIgnoreCase("escape")) {
+			screen.endingCreditsPrint();
+		}else {
+			System.out.println("힝... 그거 아닌뎅...");
+		}
+		
 		sc.close();
 	}
 }
