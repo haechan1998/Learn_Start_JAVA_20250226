@@ -180,13 +180,17 @@ public class EscapeRoomMain {
 			}
 		}
 		
-		roomController.printMessage();
-		System.out.println("입력해주세요!!!!! >");
-		String credit = sc.next();
-		if(credit.equalsIgnoreCase("escape")) {
-			screen.endingCreditsPrint();
+		if(starter.equalsIgnoreCase("n")) {
+			
 		}else {
-			System.out.println("힝... 그거 아닌뎅...");
+			roomController.printMessage();
+			System.out.println("입력해주세요!!!!! >");
+			String credit = sc.next();
+			if(credit.equalsIgnoreCase("escape")) {
+				screen.endingCreditsPrint();
+			}else {
+				System.out.println("힝... 그거 아닌뎅...");
+			}
 		}
 		
 		sc.close();
