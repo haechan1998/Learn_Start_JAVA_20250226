@@ -1,0 +1,5 @@
+Java=자바
+Apple=사과
+Kiwi=키위
+Mango=망고
+JS=자바스크립트
